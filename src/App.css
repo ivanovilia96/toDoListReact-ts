@@ -1,0 +1,63 @@
+@import '~antd/dist/antd.css';
+
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    background: #cacaca;;
+    padding: 5%;
+    display: grid;
+    align-items: self-start;
+    grid-template-columns: 1fr 100px;
+    grid-template-rows: 60px 40px 1fr;
+    grid-template-areas: "header   header" "input change-view" " toDo  toDo";
+}
+
+.task-button {
+    float: right;
+}
+
+.task {
+    background: #fafafa;
+    border: 1px solid #efefef;
+    padding-left: 10px;
+}
+
+.to-do {
+    grid-area: toDo;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.change-view {
+    grid-area: change-view;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: auto;
+}
+
+.input {
+    grid-area: input;
+    height: 100%;
+    width: auto;
+}
+
+.header {
+    grid-area: header;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: #fafafa;
+    border-radius: 50px 50px 0 0;
+    font-size: xx-large;
+}
