@@ -146,42 +146,72 @@ export default function ToDoList() {
                                             placeholder={'add here your description for new task'}/>}
                 {whichTasksWeGonnaToSe === inProcessTaskType ? listOfToDo.map(toDo => {
                     const {id, taskName} = toDo;
-                    return <div key={id} className={'task'}> {taskName}
-                        <Button
-                            className={'task-button'}
-                            onClick={handleChangeTaskStatus.bind({}, toDo,)}
-                        >task complete</Button>
+                    return (
+                        <div
+                            key={id}
+                            className={'task'}
+                        >
+                            {taskName}
+                            <Button
+                                className={'task-button'}
+                                onClick={handleChangeTaskStatus.bind({}, toDo,)}
+                            >
+                                task complete
+                            </Button>
 
-                        <Link to={'/description/tasks/' + taskName}> <Button
-                            className={'task-button'}
-                            onClick={handleViewDescriptionChange.bind({}, toDo)}
-                        >view description</Button>
-                        </Link>
+                            <Link to={'/description/tasks/' + taskName}>
+                                <Button
+                                    className={'task-button'}
+                                    onClick={handleViewDescriptionChange.bind({}, toDo)}
+                                >
+                                    view description
+                                </Button>
+                            </Link>
 
-                        <Button
-                            onClick={deleteTask.bind({}, id, inProcessTaskType)}
-                            className={'task-button'}>delete</Button></div>
+                            <Button
+                                onClick={deleteTask.bind({}, id, inProcessTaskType)}
+                                className={'task-button'}
+                            >
+                                delete
+                            </Button>
+                        </div>)
                 }) : listOfCompletedToDo.map(toDo => {
                     const {id, taskName} = toDo;
-                    return <div key={id} className={'task'}>{taskName}
+                    return (
+                        <div key={id}
+                             className={'task'}>
+                            {taskName}
 
-                        <Button
-                            onClick={handleChangeTaskStatus.bind({}, toDo,)}
-                            className={'task-button'}
-                        >move in incomplete</Button>
-                        <Link to={'/description/tasks/' + taskName}> <Button
-                            className={'task-button'}
-                            onClick={handleViewDescriptionChange.bind({}, toDo)}
-                        >view description</Button>
-                        </Link>
-                        <Button
-                            onClick={deleteTask.bind({}, id, completedTaskType)}
-                            className={'task-button'}>delete</Button></div>
+                            <Button
+                                onClick={handleChangeTaskStatus.bind({}, toDo,)}
+                                className={'task-button'}
+                            >
+                                move in incomplete
+                            </Button>
+                            <Link to={'/description/tasks/' + taskName}>
+                                <Button
+                                    className={'task-button'}
+                                    onClick={handleViewDescriptionChange.bind({}, toDo)}
+                                >
+                                    view description
+                                </Button>
+                            </Link>
+                            <Button
+                                onClick={deleteTask.bind({}, id, completedTaskType)}
+                                className={'task-button'}
+                            >
+                                delete
+                            </Button>
+                        </div>
+                    )
                 })}
             </div>
             <Switch>
                 <Route path={`/description/tasks/`}>
-                    <Modal title={taskDescription?.taskName} description={taskDescription?.description}/>
+                    <Modal
+                        title={taskDescription.taskName}
+                        description={taskDescription.description}
+                    />
                 </Route>
             </Switch>
         </div>
