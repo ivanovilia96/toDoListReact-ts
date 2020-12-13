@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ReactDOM, ReactHTML, ReactInstance, ReactNode, useEffect, useState} from 'react';
 import {Route, Link, Switch} from "react-router-dom";
 import {Button, Dropdown, Input, Menu, message} from 'antd';
 import axios from 'axios';
@@ -20,14 +20,20 @@ interface Response {
     data: Array<Task>;
 }
 
-const completedTaskType = 'completed'
-const inProcessTaskType = 'in process'
+const completedTaskType = 'completed';
+const inProcessTaskType = 'in process';
 
+const buttonType = {
+    delete: 'delete',
+    view: 'view',
+    complete: 'complete'
+}
 
+const baseUrl = 'https://5fd21a6eb485ea0016eef6eb.mockapi.io/v1/tasksList/'
 type tasksType = typeof completedTaskType | typeof inProcessTaskType
 
 
-export default function ToDoList() {
+export default function ToDoList(): JSX.Element {
     const [listOfToDo, setListOfToDo] = useState<Array<Task>>([]);
     const [listOfCompletedToDo, setListOfCompletedToDo] = useState<Array<Task>>([]);
     const [whichTasksWeGonnaToSe, setWhichTasksWeGonnaToSe] = useState<tasksType>(inProcessTaskType)
@@ -43,7 +49,7 @@ export default function ToDoList() {
     })
 
     useEffect(() => {
-        axios.get('https://5fd21a6eb485ea0016eef6eb.mockapi.io/v1/tasksList')
+        axios.get(baseUrl)
             .then((result: Response) => {
                 setListOfToDo(result.data.filter(i => !i.completed))
                 setListOfCompletedToDo(result.data.filter(i => i.completed))
@@ -53,8 +59,8 @@ export default function ToDoList() {
             })
     }, [])
 
-    function handleChangeTaskStatus(toDo: { id: string; completed: boolean }) {
-        axios.put('https://5fd21a6eb485ea0016eef6eb.mockapi.io/v1/tasksList/' + toDo.id, {
+    function handleChangeTaskStatus(toDo: { id: string; completed: boolean }): void {
+        axios.put(`${baseUrl}${toDo.id}`, {
             ...toDo,
             completed: !toDo.completed
         }).then(res => {
@@ -70,12 +76,12 @@ export default function ToDoList() {
         )
     }
 
-    function handleChangeWhichTasksWeGonnaToSe(e: any) {
+    function handleChangeWhichTasksWeGonnaToSe(): void {
         setWhichTasksWeGonnaToSe(whichTasksWeGonnaToSe === completedTaskType ? inProcessTaskType : completedTaskType)
     }
 
-    function deleteTask(id: string, taskType: tasksType) {
-        axios.delete('https://5fd21a6eb485ea0016eef6eb.mockapi.io/v1/tasksList/' + id)
+    function deleteTask(id: string, taskType: tasksType): void {
+        axios.delete(`${baseUrl}${id}`)
             .then(res => {
                     message.success('task deleted')
                     if (taskType === inProcessTaskType) {
@@ -88,16 +94,16 @@ export default function ToDoList() {
             )
     }
 
-    function handleChangeTaskName(e: { target: { value: string } }) {
+    function handleChangeTaskName(e: { target: { value: string } }): void {
         setTask({...task, taskName: e.target.value})
     }
 
-    function handleChangeTaskDescription(e: { target: { value: string } }) {
+    function handleChangeTaskDescription(e: { target: { value: string } }): void {
         setTask({...task, description: e.target.value})
     }
 
-    function handleAddNewTask() {
-        axios.post('https://5fd21a6eb485ea0016eef6eb.mockapi.io/v1/tasksList/', task)
+    function handleAddNewTask(): void {
+        axios.post(baseUrl, task)
             .then((res: { data: Task }) => {
                     message.success('task added')
                     setListOfToDo([...listOfToDo, res.data])
@@ -112,14 +118,14 @@ export default function ToDoList() {
             )
     }
 
-    function handleViewDescriptionChange(task: Task) {
+    function handleViewDescriptionChange(task: Task): void {
         const {taskName, description} = task;
         setTaskDescription({
             taskName, description
         })
     }
 
-    const menu = (
+    const menu: JSX.Element = (
         <Menu>
             <Item onClick={handleChangeWhichTasksWeGonnaToSe}>
                 {whichTasksWeGonnaToSe === completedTaskType ? inProcessTaskType : completedTaskType}
@@ -129,21 +135,36 @@ export default function ToDoList() {
 
     return (
         <div className='main'>
-            <span className='header'>  to do list</span>
+            <span className='header'>to do list</span>
             <Input size='large'
-                   addonAfter={<Button disabled={!task.taskName} onClick={handleAddNewTask}>add</Button>}
+                   addonAfter={
+                       <Button
+                           disabled={!task.taskName}
+                           onClick={handleAddNewTask}
+                       >
+                           add
+                       </Button>
+                   }
                    addonBefore=' add to do '
                    placeholder='what do you gonna do ?' className={'input'}
                    value={task.taskName}
                    onChange={handleChangeTaskName}
             />
-            <Dropdown className={'change-view'} overlay={menu} arrow={true} trigger={["click"]}>
+            <Dropdown
+                className={'change-view'}
+                overlay={menu}
+                arrow={true}
+                trigger={["click"]}
+            >
                 <Button>{whichTasksWeGonnaToSe === completedTaskType ? completedTaskType : inProcessTaskType} </Button>
             </Dropdown>
 
             <div className={"to-do"}>
-                {task.taskName && <TextArea value={task.description} onChange={handleChangeTaskDescription}
-                                            placeholder={'add here your description for new task'}/>}
+                {task.taskName && <TextArea
+                  value={task.description}
+                  onChange={handleChangeTaskDescription}
+                  placeholder={'add here your description for new task'}
+                />}
                 {whichTasksWeGonnaToSe === inProcessTaskType ? listOfToDo.map(toDo => {
                     const {id, taskName} = toDo;
                     return (
@@ -151,17 +172,17 @@ export default function ToDoList() {
                             key={id}
                             className={'task'}
                         >
-                            {taskName}
+                            <span className={'task-name'}>  {taskName}</span>
                             <Button
-                                className={'task-button'}
+                                className={buttonType.complete}
                                 onClick={handleChangeTaskStatus.bind({}, toDo,)}
                             >
                                 task complete
                             </Button>
 
-                            <Link to={'/description/tasks/' + taskName}>
+                            <Link to={'/description/tasks/' + taskName} className={buttonType.view}>
                                 <Button
-                                    className={'task-button'}
+
                                     onClick={handleViewDescriptionChange.bind({}, toDo)}
                                 >
                                     view description
@@ -170,7 +191,7 @@ export default function ToDoList() {
 
                             <Button
                                 onClick={deleteTask.bind({}, id, inProcessTaskType)}
-                                className={'task-button'}
+                                className={buttonType.delete}
                             >
                                 delete
                             </Button>
@@ -180,17 +201,16 @@ export default function ToDoList() {
                     return (
                         <div key={id}
                              className={'task'}>
-                            {taskName}
+                            <span className={'task-name'}>  {taskName}</span>
 
                             <Button
                                 onClick={handleChangeTaskStatus.bind({}, toDo,)}
-                                className={'task-button'}
+                                className={buttonType.complete}
                             >
                                 move in incomplete
                             </Button>
-                            <Link to={'/description/tasks/' + taskName}>
+                            <Link to={'/description/tasks/' + taskName} className={buttonType.view}>
                                 <Button
-                                    className={'task-button'}
                                     onClick={handleViewDescriptionChange.bind({}, toDo)}
                                 >
                                     view description
@@ -198,7 +218,7 @@ export default function ToDoList() {
                             </Link>
                             <Button
                                 onClick={deleteTask.bind({}, id, completedTaskType)}
-                                className={'task-button'}
+                                className={buttonType.delete}
                             >
                                 delete
                             </Button>
@@ -217,4 +237,3 @@ export default function ToDoList() {
         </div>
     );
 }
-

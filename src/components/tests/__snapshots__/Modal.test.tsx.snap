@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the component 1`] = `
+<Modal
+  closable={false}
+  confirmLoading={false}
+  footer={
+    <Link
+      to="/"
+    >
+      <Button>
+        go to the main page
+      </Button>
+    </Link>
+  }
+  maskTransitionName="fade"
+  okType="primary"
+  title="mockTitle"
+  transitionName="zoom"
+  visible={true}
+  width={520}
+>
+  mock-description
+</Modal>
+`;

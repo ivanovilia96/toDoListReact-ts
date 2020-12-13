@@ -4,7 +4,7 @@ import {
     Link,
 } from "react-router-dom";
 
-export default function Modal(props: { title: string, description: string }) {
+export default function Modal(props: { title: string, description: string }):JSX.Element {
     const {title, description} = props
     return (
         <ModalAntD

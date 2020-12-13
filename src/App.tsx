@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link,Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
 
 import ToDoList from "./components/ToDoList";
@@ -7,8 +7,7 @@ import ToDoList from "./components/ToDoList";
 
 
 
-function App() {
-
+function App():JSX.Element {
     return (
         <Router>
             <Switch>
@@ -18,8 +17,6 @@ function App() {
             </Switch>
         </Router>
     );
-
-
 }
 
 export default App;

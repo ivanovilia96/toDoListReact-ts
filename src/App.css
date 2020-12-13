@@ -17,14 +17,30 @@
     grid-template-areas: "header   header" "input change-view" " toDo  toDo";
 }
 
-.task-button {
-    float: right;
-}
-
 .task {
     background: #fafafa;
     border: 1px solid #efefef;
     padding-left: 10px;
+    width: 100%;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 100px  100px 100px ;
+    grid-template-areas: "text text text text button1 button2 button3";
+}
+
+.delete{
+    grid-area:button1 ;
+}
+
+.view{
+    grid-area:button2 ;
+}
+.complete{
+    grid-area: button3;
+}
+
+.task-name{
+    grid-area: text;
 }
 
 .to-do {
