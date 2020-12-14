@@ -178,16 +178,13 @@ export default function ToDoList(): JSX.Element {
                             >
                                 task complete
                             </Button>
-
                             <Link to={'/description/tasks/' + taskName} className={buttonType.view}>
                                 <Button
-
                                     onClick={handleViewDescriptionChange.bind({}, toDo)}
                                 >
                                     view description
                                 </Button>
                             </Link>
-
                             <Button
                                 onClick={deleteTask.bind({}, id, inProcessTaskType)}
                                 className={buttonType.delete}
@@ -201,7 +198,6 @@ export default function ToDoList(): JSX.Element {
                         <div key={id}
                              className={'task'}>
                             <span className={'task-name'}>  {taskName}</span>
-
                             <Button
                                 onClick={handleChangeTaskStatus.bind({}, toDo,)}
                                 className={buttonType.complete}
