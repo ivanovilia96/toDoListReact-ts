@@ -49,14 +49,14 @@ export default function ToDoList(): JSX.Element {
     })
 
     useEffect(() => {
-             axios.get(baseUrl)
-                .then((result: Response) => {
-                    setListOfToDo(result.data.filter(i => !i.completed))
-                    setListOfCompletedToDo(result.data.filter(i => i.completed))
-                    message.success('data fetched')
-                }, () => {
-                    message.error('error on fetch data from the server, call your system administrator', 1000)
-                })
+        axios.get(baseUrl)
+            .then((result: Response) => {
+                setListOfToDo(result.data.filter(i => !i.completed))
+                setListOfCompletedToDo(result.data.filter(i => i.completed))
+                message.success('data fetched')
+            }, () => {
+                message.error('error on fetch data from the server, call your system administrator', 1000)
+            })
     }, [])
 
     function handleChangeTaskStatus(toDo: { id: string; completed: boolean }): void {
@@ -155,7 +155,7 @@ export default function ToDoList(): JSX.Element {
                 arrow={true}
                 trigger={["click"]}
             >
-                <Button>{whichTasksWeGonnaToSe === completedTaskType ? completedTaskType : inProcessTaskType} </Button>
+                <Button>{whichTasksWeGonnaToSe === completedTaskType ? completedTaskType : inProcessTaskType} ⬍ </Button>
             </Dropdown>
 
             <div className={"to-do"}>
