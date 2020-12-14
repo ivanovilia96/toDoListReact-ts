@@ -1,8 +1,8 @@
 import React from 'react';
-import {shallow} from 'enzyme';
 import Modal from '../Modal';
+import {shallow} from "enzyme";
 
-test('renders the component', () => {
+test('renders the component Modal', () => {
     const component = shallow(<Modal title={'mockTitle'} description={'mock-description'}/>);
     expect(component).toMatchSnapshot();
 });

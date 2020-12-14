@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders the component 1`] = `
+exports[`renders the component Modal 1`] = `
 <Modal
   closable={false}
   confirmLoading={false}

@@ -1,4 +1,4 @@
-import React, {ReactDOM, ReactHTML, ReactInstance, ReactNode, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Route, Link, Switch} from "react-router-dom";
 import {Button, Dropdown, Input, Menu, message} from 'antd';
 import axios from 'axios';
@@ -29,7 +29,7 @@ const buttonType = {
     complete: 'complete'
 }
 
-const baseUrl = 'https://5fd21a6eb485ea0016eef6eb.mockapi.io/v1/tasksList/'
+export const baseUrl = 'https://5fd21a6eb485ea0016eef6eb.mockapi.io/v1/tasksList/'
 type tasksType = typeof completedTaskType | typeof inProcessTaskType
 
 
@@ -49,14 +49,14 @@ export default function ToDoList(): JSX.Element {
     })
 
     useEffect(() => {
-        axios.get(baseUrl)
-            .then((result: Response) => {
-                setListOfToDo(result.data.filter(i => !i.completed))
-                setListOfCompletedToDo(result.data.filter(i => i.completed))
-                message.success('data fetched')
-            }, () => {
-                message.error('error on fetch data from the server, call your system administrator', 1000)
-            })
+             axios.get(baseUrl)
+                .then((result: Response) => {
+                    setListOfToDo(result.data.filter(i => !i.completed))
+                    setListOfCompletedToDo(result.data.filter(i => i.completed))
+                    message.success('data fetched')
+                }, () => {
+                    message.error('error on fetch data from the server, call your system administrator', 1000)
+                })
     }, [])
 
     function handleChangeTaskStatus(toDo: { id: string; completed: boolean }): void {
@@ -132,7 +132,6 @@ export default function ToDoList(): JSX.Element {
             </Item>
         </Menu>
     );
-
     return (
         <div className='main'>
             <span className='header'>to do list</span>

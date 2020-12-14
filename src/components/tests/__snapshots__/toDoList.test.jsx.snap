@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToDoList check render: snapshot test 1`] = `
+<div
+  class="main"
+>
+  <span
+    class="header"
+  >
+    to do list
+  </span>
+  <span
+    class="ant-input-group-wrapper ant-input-group-wrapper-lg input"
+  >
+    <span
+      class="ant-input-wrapper ant-input-group"
+    >
+      <span
+        class="ant-input-group-addon"
+      >
+         add to do 
+      </span>
+      <input
+        class="ant-input ant-input-lg"
+        placeholder="what do you gonna do ?"
+        type="text"
+        value=""
+      />
+      <span
+        class="ant-input-group-addon"
+      >
+        <button
+          class="ant-btn"
+          disabled=""
+          type="button"
+        >
+          <span>
+            add
+          </span>
+        </button>
+      </span>
+    </span>
+  </span>
+  <button
+    class="ant-btn ant-dropdown-trigger change-view"
+    type="button"
+  >
+    <span>
+      in process 
+    </span>
+  </button>
+  <div
+    class="to-do"
+  />
+</div>
+`;
+
+exports[`ToDoList check render: snapshot test after useEffect 1`] = `
+<div
+  class="main"
+>
+  <span
+    class="header"
+  >
+    to do list
+  </span>
+  <span
+    class="ant-input-group-wrapper ant-input-group-wrapper-lg input"
+  >
+    <span
+      class="ant-input-wrapper ant-input-group"
+    >
+      <span
+        class="ant-input-group-addon"
+      >
+         add to do 
+      </span>
+      <input
+        class="ant-input ant-input-lg"
+        placeholder="what do you gonna do ?"
+        type="text"
+        value=""
+      />
+      <span
+        class="ant-input-group-addon"
+      >
+        <button
+          class="ant-btn"
+          disabled=""
+          type="button"
+        >
+          <span>
+            add
+          </span>
+        </button>
+      </span>
+    </span>
+  </span>
+  <button
+    class="ant-btn ant-dropdown-trigger change-view"
+    type="button"
+  >
+    <span>
+      in process 
+    </span>
+  </button>
+  <div
+    class="to-do"
+  />
+</div>
+`;
